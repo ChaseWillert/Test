@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en-US">
+	<head>
+		<title>Contacts Manager (alpha)</title>
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+	</head>
+
+	<body>
+		<h1 id="title">Contacts Manager</h1>
+		<div id="loginDiv">
+			<span id="inner-title">Please log in</span>
+			<br>
+			<br>
+			<input id="username" type="text" placeholder="username">
+			<input id="password" type="password" placeholder="password">
+			<br>
+			<br>
+			<input id="forgotPasswordButton" type="button" value="Forgot your password?" onclick="void">
+			<input id="loginButton" type="button" value="Login now" onclick="void">
+		</div>
+	</body>
+</html>
