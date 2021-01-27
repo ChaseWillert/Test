@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en-US">
+	<head>
+		<title>Contacts Manager</title>
+		<link rel="stylesheet" type="text/css" href="css/indexStyle.css">
+		<script type="text/javascript" src="js/md5.js"></script>
+		<script type="text/javascript" src="js/code.js"></script>
+	</head>
+
+	<body>
+		<h1 id="title">Contacts Manager</h1>
+		<div id="loginDiv">
+			<span id="innerTitle">Please register</span>
+			<div id="usernameAndPassword">
+				<input id="firstName" type="text" placeholder="first name" style="text-align:center;margin-bottom: 5px;">
+				<input id="lastName" type="text" placeholder="last name">
+				<br>
+				<input id="username" type="text" placeholder="username">
+				<input id="password" type="password" placeholder="password">
+			</div>
+			<input id="loginButton" type="button" value="Register" onclick="doRegister();">
+			<nav id="userNavigation">
+				<a href="index.html" title="Login to your account">Already have an account?</a>
+				<!--Not necessary, but might implement later.-->
+				<!--<a href="" title="Reset your password">Forgot your password?</a>-->
+			</nav>
+		</div>
+	</body>
+</html>

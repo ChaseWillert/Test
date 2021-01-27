@@ -4,8 +4,9 @@
 	$inData = getRequestInfo();
 	
 	//Set local variables to deserialized json data.
-	$username = $inData["username"];
-	$password = $inData["password"];
+	$first = $inData["first"];
+	$last = $inData["last"];
+	$user_id = $inData["user_id"];
 	
 	//Temporarily using Noah's login for MySQL.
 	$conn = new mysqli("localhost", "Noah_API", "Noah_API_Password", "NOAH_TEST");
@@ -16,7 +17,7 @@
 	}
 	else {
 		//Create insert command for MySQL.
-		$sql = "insert into Users (user_id,user_password) VALUES ('" . $username . "','" . $password . "')";
+		$sql = "insert into Contacts (first,last,user_id) VALUES ('" . $first . "','" . $last . "'," . $user_id . ")";
 		
 		//Check if query could be completed.
 		if( $result = $conn->query($sql) != TRUE ) {
