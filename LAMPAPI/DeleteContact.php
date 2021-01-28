@@ -4,8 +4,7 @@
 	$inData = getRequestInfo();
 	
 	//Set local variables to deserialized json data.
-	$username = $inData["username"];
-	$password = $inData["password"];
+	$delete = $inData["delete"];
 	
 	//Temporarily using Noah's login for MySQL.
 	$conn = new mysqli("localhost", "Noah_API", "Noah_API_Password", "NOAH_TEST");
@@ -15,27 +14,17 @@
 		returnWithError( $conn->connect_error );
 	}
 	else {
-		//Create insert command for MySQL.
-		#$sql = "insert into Users (id,user_id,user_password) VALUES (" . $id . ",'" . $username . "','" . $password . "')";
-		$sql = "insert into Users (user_id,user_password) VALUES (?,?)";
-		$stmt = $conn->prepare($sql);
-		
-		#$id = $_POST['id'];
-		#$user = $_POST['username'];
-		#pass = $_POST['password'];
+		//Create delete command for MySQL.
+		$sql = $conn->prepare("delete from Contacts where id = ?");
 		
 		//Check if query could be completed.
-		#if( $result = $conn->query($sql) != TRUE ) {
-		#	returnWithError( $conn->error );
-		#}
-		
-		if ($stmt->bind_param("ss", $username, $password) == false) {
+		if ($sql->bind_param("i", $delete) == false) {
 			returnWithError("bind_param failed");
 			end;
 		}
 		
-		#echo $conn->error;die;
-		$stmt->execute();
+		//Execute MySQL query.
+		$sql->execute();
 		
 		//Close the connection.
 		$conn->close();

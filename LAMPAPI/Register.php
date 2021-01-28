@@ -16,12 +16,16 @@
 	}
 	else {
 		//Create insert command for MySQL.
-		$sql = "insert into Users (user_id,user_password) VALUES ('" . $username . "','" . $password . "')";
+		$sql = $conn->prepare("insert into Users (user_id,user_password) VALUES (?,?)");
 		
 		//Check if query could be completed.
-		if( $result = $conn->query($sql) != TRUE ) {
-			returnWithError( $conn->error );
+		if ($sql->bind_param("ss", $username, $password) == false) {
+			returnWithError("bind_param failed");
+			end;
 		}
+		
+		//Execute MySQL query.
+		$sql->execute();
 		
 		//Close the connection.
 		$conn->close();

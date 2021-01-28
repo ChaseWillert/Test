@@ -6,7 +6,7 @@
 	//Set local variables to deserialized json data.
 	$first = $inData["first"];
 	$last = $inData["last"];
-	$user_id = $inData["user_id"];
+	$id = $inData["id"];
 	
 	//Temporarily using Noah's login for MySQL.
 	$conn = new mysqli("localhost", "Noah_API", "Noah_API_Password", "NOAH_TEST");
@@ -16,11 +16,11 @@
 		returnWithError( $conn->connect_error );
 	}
 	else {
-		//Create insert command for MySQL.
-		$sql = $conn->prepare("insert into Contacts (first,last,user_id) VALUES (?,?,?)");
+		//Create update command for MySQL.
+		$sql = $conn->prepare("update Contacts set first = ?, last = ? where id = ?");
 		
 		//Check if query could be completed.
-		if ($sql->bind_param("ssi", $first, $last, $user_id) == false) {
+		if ($sql->bind_param("ssi", $first, $last, $id) == false) {
 			returnWithError("bind_param failed");
 			end;
 		}
