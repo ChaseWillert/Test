@@ -4,11 +4,13 @@
 	$inData = getRequestInfo();
 	
 	//Set local variables to deserialized json data.
-	$username = $inData["username"];
+	$first = $inData["first"];
+	$last = $inData["last"];
+	$login = $inData["login"];
 	$password = $inData["password"];
 	
 	//Temporarily using Noah's login for MySQL.
-	$conn = new mysqli("localhost", "Noah_API", "Noah_API_Password", "NOAH_TEST");
+	$conn = new mysqli("localhost", "Test", "Test_Pass", "ContactManager");
 	
 	//Check for connection error.
 	if ($conn->connect_error)  {
@@ -16,10 +18,10 @@
 	}
 	else {
 		//Create insert command for MySQL.
-		$sql = $conn->prepare("insert into Users (user_id,user_password) VALUES (?,?)");
+		$sql = $conn->prepare("insert into UserTABLE (UserName,Password,FirstName,LastName) VALUES (?,?,?,?)");
 		
 		//Check if query could be completed.
-		if ($sql->bind_param("ss", $username, $password) == false) {
+		if ($sql->bind_param("ssss", $login, $password, $first, $last) == false) {
 			returnWithError("bind_param failed");
 			end;
 		}
