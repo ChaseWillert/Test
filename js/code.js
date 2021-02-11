@@ -1,4 +1,4 @@
-var urlBase = 'anakinstartpanakin.com/LAMPAPI';
+var urlBase = 'LAMPAPI';
 var extension = 'php';
 
 var userId = 0;
