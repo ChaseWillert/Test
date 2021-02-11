@@ -66,20 +66,16 @@ function doRegister()
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-	try
-	{
-		xhr.onreadystatechange = function()
-		{
-			if (this.readyState == 4 && this.status == 200)
-			{
+	try {
+		xhr.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
 				window.location.href = "index.html";
 			}
 		};
 
 		xhr.send(jsonPayload);
 	}
-	catch(err)
-	{
+	catch(err) {
 		alert(err.message);
 	}
 }
