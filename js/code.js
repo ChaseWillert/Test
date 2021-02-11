@@ -11,8 +11,8 @@ function doLogin()
 	firstName = "";
 	lastName = "";
 
-	var login = document.getElementById("username-field").value; // good
-	var password = document.getElementById("password-field").value; // good
+	var login = document.getElementById("username-field").value;
+	var password = document.getElementById("password-field").value;
 	var hash = md5(password); // good
 
 	var jsonPayload = '{"login" : "' + login + '", "password" : "' + hash + '"}';
@@ -21,7 +21,7 @@ function doLogin()
 
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, false);
-	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8"); // good
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 	try
 	{
 		xhr.send(jsonPayload);
@@ -41,7 +41,7 @@ function doLogin()
 
 		saveCookie();
 
-		window.location.href = "main-page.html";
+		window.location.href = "mainpage.html";
 	}
 	catch(err)
 	{
@@ -57,12 +57,14 @@ function doRegister()
 	var password = document.getElementById("password-field").value;
 	var hash = md5(password);
 
-	var jsonPayload = '{"login" : "' + login + '", "password" : "' + hash + '", "first" : "' + firstName + '", "last" : "' + lastName + '"}';
-//	var jsonPayload = '{"login" : "' + login + '", "password" : "' + password + '"}';
+	var jsonPayload =
+      '{"firstName" : "' + first + '", "lastName" : "' + last +
+	  '", "login" : "' + login + '", "password" : "' + hash + '"}';
+	//	var jsonPayload = '{"login" : "' + login + '", "password" : "' + password + '"}';
 	var url = urlBase + '/Register.' + extension;
 
 	var xhr = new XMLHttpRequest();
-	xhr.open("POST", url, false);
+	xhr.open("POST", url, true);
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 	try
 	{
@@ -88,7 +90,9 @@ function saveCookie()
 	var minutes = 20;
 	var date = new Date();
 	date.setTime(date.getTime()+(minutes*60*1000));
-	document.cookie = "firstName=" + firstName + ",lastName=" + lastName + ",userId=" + userId + ";expires=" + date.toGMTString();
+	document.cookie =
+	"firstName=" + firstName + ",lastName=" + lastName +
+	",userId=" + userId + ";expires=" + date.toGMTString();
 }
 
 function readCookie()

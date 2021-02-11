@@ -6,10 +6,17 @@
 	//Set local variables to deserialized json data.
 	$first = $inData["first"];
 	$last = $inData["last"];
+	$email = $inData["email"];
+	$phone = $inData["phone"];
+	$street = $inData["street"];
+	$city = $inData["city"];
+	$state = $inData["state"];
+	$zip = $inData["zip"];
+	$notes = $inData["notes"];
 	$id = $inData["id"];
 	
-	//Temporarily using Noah's login for MySQL.
-	$conn = new mysqli("localhost", "Noah_API", "Noah_API_Password", "NOAH_TEST");
+	//Temporarily using test login for MySQL.
+	$conn = new mysqli("localhost", "Test", "Test_Pass", "ContactManager");
 	
 	//Check for connection error.
 	if ($conn->connect_error)  {
@@ -17,10 +24,10 @@
 	}
 	else {
 		//Create update command for MySQL.
-		$sql = $conn->prepare("update Contacts set first = ?, last = ? where id = ?");
+		$sql = $conn->prepare("update ContactTable set FirstName = ?, LastName = ?, Email = ?, PhoneNumber = ?, StreetAddress = ?, City = ?, State = ?, ZipCode = ?, Notes = ? where ContactID = ?");
 		
 		//Check if query could be completed.
-		if ($sql->bind_param("ssi", $first, $last, $id) == false) {
+		if ($sql->bind_param("sssssssssi", $first, $last, $email, $phone, $street, $city, $state, $zip, $notes, $id) == false) {
 			returnWithError("bind_param failed");
 			end;
 		}
@@ -43,12 +50,12 @@
 	//Function for sending resultant json data.
 	function sendResultInfoAsJson( $obj ) {
 		header('Content-type: application/json');
-		echo $obj;
+		echo json_encode($obj);
 	}
 	
 	//Function for setting up the return.
 	function returnWithError( $err ) {
-		$retValue = '{"error":"' . $err . '"}';
+		$retValue = array('error' => $err);
 		sendResultInfoAsJson( $retValue );
 	}
 	

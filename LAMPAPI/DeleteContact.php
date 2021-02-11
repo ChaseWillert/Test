@@ -6,8 +6,8 @@
 	//Set local variables to deserialized json data.
 	$delete = $inData["delete"];
 	
-	//Temporarily using Noah's login for MySQL.
-	$conn = new mysqli("localhost", "Noah_API", "Noah_API_Password", "NOAH_TEST");
+	//Temporarily using test login for MySQL.
+	$conn = new mysqli("localhost", "Test", "Test_Pass", "ContactManager");
 	
 	//Check for connection error.
 	if ($conn->connect_error)  {
@@ -15,7 +15,7 @@
 	}
 	else {
 		//Create delete command for MySQL.
-		$sql = $conn->prepare("delete from Contacts where id = ?");
+		$sql = $conn->prepare("delete from ContactTable where ContactId = ?");
 		
 		//Check if query could be completed.
 		if ($sql->bind_param("i", $delete) == false) {
@@ -41,12 +41,12 @@
 	//Function for sending resultant json data.
 	function sendResultInfoAsJson( $obj ) {
 		header('Content-type: application/json');
-		echo $obj;
+		echo json_encode($obj);
 	}
 	
 	//Function for setting up the return.
 	function returnWithError( $err ) {
-		$retValue = '{"error":"' . $err . '"}';
+		$retValue = array('error' => $err);
 		sendResultInfoAsJson( $retValue );
 	}
 	

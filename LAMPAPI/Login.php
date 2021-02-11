@@ -1,76 +1,73 @@
 <?php
-
+	
+	//Get deserialized json data.
 	$inData = getRequestInfo();
 	
+	//Set local variables to deserialized json data.
+	$login = $inData["login"];
+	$password = $inData["password"];
+	
+	//Declare local variables for login.
 	$id = 0;
 	$firstName = "";
 	$lastName = "";
-
-	$conn = new mysqli("localhost", "Noah_API", "Noah_API_Password", "NOAH_TEST");
-	if ($conn->connect_error) 
-	{
+	
+	//Temporarily using test login for MySQL.
+	$conn = new mysqli("localhost", "Test", "Test_Pass", "ContactManager");
+	
+	//Check for connection error.
+	if ($conn->connect_error)  {
 		returnWithError( $conn->connect_error );
-	} 
-	else
-	{
-        
-        
-		$sql = $conn->prepare("SELECT id, user_id FROM Users WHERE user_id=? AND user_password=?");
-        #$sql = $conn->prepare("SELECT * FROM Users");
-        
-        $user = $_POST['username'];
-        $pass = $_POST['password'];
-        
-        if ($sql->bind_param("ss", $user, $pass) == false)
-        {
-            returnWithError("bind_param failed");
-            end;
-        }
-        
-        #echo $conn->error;die;
-        $sql->execute();
-        
-		$result = $sql->get_result();
+	}
+	else {
+		//Create select command for MySQL.
+		$sql = $conn->prepare("select UserID,FirstName,LastName from UserTABLE where UserName = ? and Password = ?");
 		
-        if ($result->num_rows > 0)
-		{
-			$row = $result->fetch_array();
-			$id = $row["id"];
-			$user_id = $row["user_id"];
-			
-			returnWithInfo($id, $user_id);
+		//Check if query could be completed.
+		if ($sql->bind_param("ss", $login, $password) == false) {
+			returnWithError("bind_param failed");
+			end;
 		}
-		else
-		{
+		
+		//Execute MySQL query.
+		$sql->execute();
+		
+		//Search for login result.
+		$result = $sql->get_result();
+		if ($result->num_rows > 0) {
+			$row = $result->fetch_assoc();
+			$firstName = $row["FirstName"];
+			$lastName = $row["LastName"];
+			$id = $row["UserID"];
+			
+			returnWithInfo($firstName, $lastName, $id );
+		}
+		else {
 			returnWithError( "No Records Found" );
 		}
-        
-        
-        $sql->close();
 		$conn->close();
-        
 	}
 	
-	function getRequestInfo()
-	{
+	//Function for deserializing input json data.
+	function getRequestInfo() {
 		return json_decode(file_get_contents('php://input'), true);
 	}
 
-	function sendResultInfoAsJson( $obj )
-	{
+	//Function for sending resultant json data.
+	function sendResultInfoAsJson( $obj ) {
 		header('Content-type: application/json');
-		echo $obj;
+		echo json_encode($obj);
 	}
 	
-	function returnWithError( $err )
-	{
-		$retValue = '{"id":0,"firstName":"","lastName":"","error":"' . $err . '"}';
+	//Function for setting up the return with error.
+	function returnWithError( $err ) {
+		$retValue = array('id' => 0, 'firstName' => "", 'lastName' => "", 'error' => $err);
 		sendResultInfoAsJson( $retValue );
 	}
 	
-	function returnWithInfo( $firstName, $lastName)
-	{
-		$retValue = '{"firstName":"' . $firstName . '","lastName":"' . $lastName . '","error":""}';
+	//Function for setting up the return.
+	function returnWithInfo( $firstName, $lastName, $id ) {
+		$retValue = array('id' => $id, 'firstName' => $firstName, 'lastName' => $lastName, 'error' => "");
 		sendResultInfoAsJson( $retValue );
 	}
 	
