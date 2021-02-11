@@ -1,26 +1,51 @@
 <!DOCTYPE html>
 <html lang="en-US">
-	<head>
-		<title>Contacts Manager</title>
-		<link rel="stylesheet" type="text/css" href="css/indexStyle.css">
-		<script type="text/javascript" src="js/md5.js"></script>
-		<script type="text/javascript" src="js/code.js"></script>
-	</head>
 
-	<body>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Contacts Manager</title>
+	<link rel="stylesheet" href="css/indexStyle.css">
+	<script defer src="js/md5.js"></script>
+	<script defer src="js/code.js"></script>
+</head>
+
+<body>
+	<main id="main-holder">
 		<h1 id="title">Contacts Manager</h1>
-		<div id="loginDiv">
-			<span id="innerTitle">Please log in</span>
-			<div id="usernameAndPassword">
-				<input id="username" type="text" placeholder="username">
-				<input id="password" type="password" placeholder="password">
-			</div>
-			<input id="loginButton" type="button" value="Login" onclick="doLogIn();">
-			<nav id="userNavigation">
-				<a href="register.html" title="Create an account">Don't have an account?</a>
-				<!--Not necessary, but might implement later.-->
-				<!--<a href="" title="Reset your password">Forgot your password?</a>-->
-			</nav>
+		
+		<div id="login-error-msg-holder">
+			<p id="login-error-msg">Invalid username <span id="error-msg-second-line">and/or password</span></p>			
 		</div>
-	</body>
+
+		<form id="login-form">
+			<p id="username-title">Username: <input type="text" name="username" id="username-field" class="login-form-field"></p>
+
+			<p id="password-title"> Password: <input type="password" name="password" id="password-field" class="login-form-field"></p>
+
+			<input type="submit" value="Login" id="login-form-submit">
+			<a id="register" href="register.html" title="Create an account">Don't have an account?</a>
+		</form>
+	</main>
+</body>
+
+
 </html>
+
+<!--
+	<div id="loginDiv">
+		<span id="innerTitle">Please log in</span>
+		<div id="usernameAndPassword">
+			<input id="loginUsername" type="text" placeholder="username">
+			<input id="loginPassword" type="password" placeholder="password">
+		</div>
+		<input id="loginButton" type="button" value="Login" onclick="doLogin();">
+		<nav id="userNavigation">
+			<a href="register.html" title="Create an account">Don't have an account?</a>
+			<--Not necessary, but might implement later.-->
+			<!--<a href="" title="Reset your password">Forgot your password?</a>--
+		</nav>
+		<span id="loginResult"></span>
+	</div>
+-->

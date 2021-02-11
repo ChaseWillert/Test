@@ -1,32 +1,35 @@
 <!DOCTYPE html>
 <html lang="en-US">
-	<head>
-		<title>Contacts Manager</title>
-		<link rel="stylesheet" type="text/css" href="css/indexStyle.css">
-		<script type="text/javascript" src="js/md5.js"></script>
-		<script type="text/javascript" src="js/code.js"></script>
-	</head>
 
-	<body>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Contacts Manager</title>
+	<link rel="stylesheet" href="css/registerStyle.css">
+	<script defer src="js/md5.js"></script>
+	<script defer src="js/code.js"></script>
+</head>
+
+<body>
+	<main id="main-holder">
 		<h1 id="title">Contacts Manager</h1>
-		<div id="loginDiv">
-			<span id="innerTitle">Please register</span>
-			<div id="usernameAndPassword">
-				<!--Used inline css since it wouldn't show otherwise-->
-				<input id="registerFirst" type="text" placeholder="first name" style="text-align:center;margin-bottom: 5px;">
-				<input id="registerLast" type="text" placeholder="last name" style="text-align:center;margin-bottom: 5px;">
-				<br>
 
-				<input id="registerUsername" type="text" placeholder="username">
-				<input id="registerPassword" type="password" placeholder="password">
-			</div>
-			<input id="registerButton" type="button" value="Register" onclick="doRegister();">
-			<nav id="userNavigation">
-				<a href="index.html" title="Login to your account">Already have an account?</a>
-				<!--Not necessary, but might implement later.-->
-				<!--<a href="" title="Reset your password">Forgot your password?</a>-->
-			</nav>
-			<span id="loginResult"></span>
-		</div>
-	</body>
+		<form id="register-form">
+			<input type="text" name="first-name" id="first-name-field" class="register-form-field" placeholder="first name">
+
+			<input type="text" name="last-name" id="last-name-field" class="register-form-field" placeholder="lase name">
+
+			<input type="text" name="username" id="username-field" class="register-form-field" placeholder="username">
+
+			<input type="password" name="password" id="password-field" class="register-form-field" placeholder="password">
+
+			<input type="button" value="Register" id="register-form-submit" onclick="doRegister();">
+
+			<a id="login" href="index.html" title="Login to your account">Already have an account?</a>
+		</form>
+	</main>
+</body>
+
+
 </html>

@@ -39,7 +39,7 @@ a:link, a:visited
 	border-color: black;
 }
 
-#login-form
+#register-form
 {
 	align-self: flex-start;
 	display: grid;
@@ -47,7 +47,7 @@ a:link, a:visited
 	align-items: center;
 }
 
-#login-form-submit
+#register-form-submit
 {
 	width: 100%;
 	padding: 7px;
@@ -60,22 +60,23 @@ a:link, a:visited
 	outline: none;
 }
 
-#register
+#login
 {
 	font-size: 9pt;
 }
 
-.login-form-field::placeholder
+.register-form-field::placeholder
 {
 	text-align: center;
 	font-weight: bold;
 	color: black;
 }
 
-.login-form-field
+.register-form-field
 {
 	border: none;
 	border-left: ;
+/*	border-bottom: 1px solid #3a3a3a; */
 	border-right:;
 	margin-bottom: 10px;
 	border-radius: 3px;

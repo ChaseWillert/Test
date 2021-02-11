@@ -2,7 +2,7 @@
 <html lang="en-US">
 	<head>
 		<title>Contacts Manager</title>
-		<link rel="stylesheet" type="text/css" href="css/indexStyle.css">
+		<link rel="stylesheet" type="text/css" href="css/registerStyle.css">
 		<script type="text/javascript" src="js/md5.js"></script>
 		<script type="text/javascript" src="js/code.js"></script>
 	</head>

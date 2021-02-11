@@ -10,12 +10,10 @@ function doLogin()
 	userId = 0;
 	firstName = "";
 	lastName = "";
-	
-	var login = document.getElementById("loginUsername").value; // good
-	var password = document.getElementById("loginPassword").value; // good
-	var hash = md5(password); // good
 
-	document.getElementById("loginResult").innerHTML = "";
+	var login = document.getElementById("username-field").value; // good
+	var password = document.getElementById("password-field").value; // good
+	var hash = md5(password); // good
 
 	var jsonPayload = '{"login" : "' + login + '", "password" : "' + hash + '"}';
 //	var jsonPayload = '{"login" : "' + login + '", "password" : "' + password + '"}';
@@ -27,39 +25,37 @@ function doLogin()
 	try
 	{
 		xhr.send(jsonPayload);
-	
+
 		var jsonObject = JSON.parse( xhr.responseText );
-		
+
 		userId = jsonObject.id;
-		
+
 		if( userId < 1 )
 		{
-			document.getElementById("loginResult").innerHTML = "User/Password combination incorrect";
+			alert("Invalid username or password.");
 			return;
 		}
-		
+
 		firstName = jsonObject.firstName;
 		lastName = jsonObject.lastName;
 
 		saveCookie();
-	
-		window.location.href = "index.html";
+
+		window.location.href = "main-page.html";
 	}
 	catch(err)
 	{
-		document.getElementById("loginResult").innerHTML = err.message;
+		alert(err.message);
 	}
 }
 
 function doRegister()
 {
-	var first = document.getElementById("registerFirst").value;
-	var last = document.getElementById("registerLast").value;
-	var login = document.getElementById("registerUsername").value;
-	var password = document.getElementById("registerPassword").value;
-	var hash = md5( password );
-	
-	document.getElementById("loginResult").innerHTML = "";
+	var first = document.getElementById("first-name-field").value;
+	var last = document.getElementById("last-name-field").value;
+	var login = document.getElementById("username-field").value;
+	var password = document.getElementById("password-field").value;
+	var hash = md5(password);
 
 	var jsonPayload = '{"login" : "' + login + '", "password" : "' + hash + '", "first" : "' + firstName + '", "last" : "' + lastName + '"}';
 //	var jsonPayload = '{"login" : "' + login + '", "password" : "' + password + '"}';
@@ -82,7 +78,7 @@ function doRegister()
 	}
 	catch(err)
 	{
-		document.getElementById("loginResult").innerHTML = err.message;
+		alert(err.message);
 	}
 }
 
@@ -91,7 +87,7 @@ function saveCookie()
 {
 	var minutes = 20;
 	var date = new Date();
-	date.setTime(date.getTime()+(minutes*60*1000));	
+	date.setTime(date.getTime()+(minutes*60*1000));
 	document.cookie = "firstName=" + firstName + ",lastName=" + lastName + ",userId=" + userId + ";expires=" + date.toGMTString();
 }
 
@@ -100,7 +96,7 @@ function readCookie()
 	userId = -1;
 	var data = document.cookie;
 	var splits = data.split(",");
-	for(var i = 0; i < splits.length; i++) 
+	for(var i = 0; i < splits.length; i++)
 	{
 		var thisOne = splits[i].trim();
 		var tokens = thisOne.split("=");
@@ -117,7 +113,7 @@ function readCookie()
 			userId = parseInt( tokens[1].trim() );
 		}
 	}
-	
+
 	if( userId < 0 )
 	{
 		window.location.href = "index.html";
@@ -141,18 +137,18 @@ function addContact()
 {
 	var newColor = document.getElementById("colorText").value;
 	document.getElementById("colorAddResult").innerHTML = "";
-	
+
 	var jsonPayload = '{"color" : "' + newColor + '", "userId" : ' + userId + '}';
 	var url = urlBase + '/AddColor.' + extension;
-	
+
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 	try
 	{
-		xhr.onreadystatechange = function() 
+		xhr.onreadystatechange = function()
 		{
-			if (this.readyState == 4 && this.status == 200) 
+			if (this.readyState == 4 && this.status == 200)
 			{
 				document.getElementById("colorAddResult").innerHTML = "Color has been added";
 			}
@@ -169,24 +165,24 @@ function searchContact()
 {
 	var srch = document.getElementById("searchText").value;
 	document.getElementById("colorSearchResult").innerHTML = "";
-	
+
 	var colorList = "";
-	
+
 	var jsonPayload = '{"search" : "' + srch + '","userId" : ' + userId + '}';
 	var url = urlBase + '/SearchColors.' + extension;
-	
+
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 	try
 	{
-		xhr.onreadystatechange = function() 
+		xhr.onreadystatechange = function()
 		{
-			if (this.readyState == 4 && this.status == 200) 
+			if (this.readyState == 4 && this.status == 200)
 			{
 				document.getElementById("colorSearchResult").innerHTML = "Color(s) has been retrieved";
 				var jsonObject = JSON.parse( xhr.responseText );
-				
+
 				for( var i=0; i<jsonObject.results.length; i++ )
 				{
 					colorList += jsonObject.results[i];
@@ -195,7 +191,7 @@ function searchContact()
 						colorList += "<br />\r\n";
 					}
 				}
-				
+
 				document.getElementsByTagName("p")[0].innerHTML = colorList;
 			}
 		};
