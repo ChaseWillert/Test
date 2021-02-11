@@ -1,0 +1,56 @@
+html
+{
+	height: 100%;
+}
+
+body
+{
+	height: 100%;
+	background-color: powderblue;
+	height: 100%;
+	margin: 0;
+	font-family: Arial;
+	display: grid;
+	justify-items: center;
+	align-items: center;
+}
+
+#main-holder
+{
+	width: 80%;
+	height: 80%;
+	display: grid;
+/*	justify-items: center;
+	align-items: center;
+*/	background-color: white;
+	border-radius: 20px;
+	border-color: black;
+}
+
+#title
+{
+	text-align: center;
+	color: black;
+}
+
+#search-bar-holder
+{
+	justify-self: center;
+}
+
+#add-contact-holder
+{
+	justify-self: center;
+}
+
+#entire-table
+{
+}
+
+#table-headers
+{
+}
+
+.headers
+{
+}
