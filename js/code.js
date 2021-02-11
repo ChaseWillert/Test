@@ -58,7 +58,7 @@ function doRegister()
 	var hash = md5(password);
 
 	var jsonPayload =
-      '{"firstName" : "' + first + '", "lastName" : "' + last +
+      '{"first" : "' + first + '", "last" : "' + last +
 	  '", "login" : "' + login + '", "password" : "' + hash + '"}';
 	//	var jsonPayload = '{"login" : "' + login + '", "password" : "' + password + '"}';
 	var url = urlBase + '/Register.' + extension;
