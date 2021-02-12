@@ -13,7 +13,7 @@
 	$state = $inData["state"];
 	$zip = $inData["zip"];
 	$notes = $inData["notes"];
-	//$user_id = $inData["user_id"];
+	$id = $inData["userId"];
 	
 	//Temporarily using test login for MySQL.
 	$conn = new mysqli("localhost", "Test", "Test_Pass", "ContactManager");
@@ -24,10 +24,10 @@
 	}
 	else {
 		//Create insert command for MySQL. Temporarily have test values for DateCreated.
-		$sql = $conn->prepare("insert into ContactTable (FirstName,LastName,Email,PhoneNumber,StreetAddress,City,State,ZipCode,Notes,DateCreated) VALUES (?,?,?,?,?,?,?,?,?,'1000-01-01 00:00:00')");
+		$sql = $conn->prepare("insert into `Contact Table` (`First Name`,`Last Name`,Email,`Phone Number`,`Street Address`,City,State,`Zip Code`,Notes,`User Id`) VALUES (?,?,?,?,?,?,?,?,?,?)");
 		
 		//Check if query could be completed.
-		if ($sql->bind_param("sssssssss", $first, $last, $email, $phone, $street, $city, $state, $zip, $notes) == false) {
+		if ($sql->bind_param("ssssssssss", $first, $last, $email, $phone, $street, $city, $state, $zip, $notes, $id) == false) {
 			returnWithError("bind_param failed");
 			end;
 		}

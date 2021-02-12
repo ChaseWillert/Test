@@ -15,7 +15,7 @@
 	}
 	else {
 		//Create delete command for MySQL.
-		$sql = $conn->prepare("delete from ContactTable where ContactId = ?");
+		$sql = $conn->prepare("delete from `Contact Table` where `Contact Id` = ?");
 		
 		//Check if query could be completed.
 		if ($sql->bind_param("i", $delete) == false) {

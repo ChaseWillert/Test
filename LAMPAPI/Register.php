@@ -18,7 +18,7 @@
 	}
 	else {
 		//Create insert command for MySQL. Temporarily have test values for DateCreated and DateLastIn.
-		$sql = $conn->prepare("insert into UserTABLE (UserName,Password,FirstName,LastName,DateCreated,DateLastIn) VALUES (?,?,?,?,'1000-01-01 00:00:00','1000-01-01 00:00:00')");
+		$sql = $conn->prepare("insert into `User Table` (Username,Password,`First Name`,`Last Name`) VALUES (?,?,?,?)");
 		
 		//Check if query could be completed.
 		if ($sql->bind_param("ssss", $login, $password, $first, $last) == false) {

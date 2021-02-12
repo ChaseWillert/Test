@@ -21,7 +21,7 @@
 	}
 	else {
 		//Create select command for MySQL.
-		$sql = $conn->prepare("select UserID,FirstName,LastName from UserTABLE where UserName = ? and Password = ?");
+		$sql = $conn->prepare("select `User ID`,`First Name`,`Last Name` from `User Table` where Username = ? and Password = ?");
 		
 		//Check if query could be completed.
 		if ($sql->bind_param("ss", $login, $password) == false) {
@@ -36,9 +36,9 @@
 		$result = $sql->get_result();
 		if ($result->num_rows > 0) {
 			$row = $result->fetch_assoc();
-			$firstName = $row["FirstName"];
-			$lastName = $row["LastName"];
-			$id = $row["UserID"];
+			$firstName = $row["First Name"];
+			$lastName = $row["Last Name"];
+			$id = $row["User ID"];
 			
 			returnWithInfo($firstName, $lastName, $id );
 		}

@@ -24,7 +24,7 @@
 	}
 	else {
 		//Create update command for MySQL.
-		$sql = $conn->prepare("update ContactTable set FirstName = ?, LastName = ?, Email = ?, PhoneNumber = ?, StreetAddress = ?, City = ?, State = ?, ZipCode = ?, Notes = ? where ContactID = ?");
+		$sql = $conn->prepare("update `Contact Table` set `First Name` = ?, `Last Name` = ?, Email = ?, `Phone Number` = ?, `Street Address` = ?, City = ?, State = ?, `Zip Code` = ?, Notes = ? where `Contact ID` = ?");
 		
 		//Check if query could be completed.
 		if ($sql->bind_param("sssssssssi", $first, $last, $email, $phone, $street, $city, $state, $zip, $notes, $id) == false) {
