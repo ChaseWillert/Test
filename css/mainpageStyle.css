@@ -33,6 +33,32 @@ body
 	color: black;
 }
 
+#search-button
+{
+	width: 60px;
+	padding: 7px;
+	border: none;
+	border-radius: 3px;
+	color: white;
+	font-weight: bold;
+	background-color: #3a3a3a;
+	cursor: pointer;
+	outline: none;
+}
+
+#add-contact
+{
+	width: 140px;
+	padding: 7px;
+	border: none;
+	border-radius: 3px;
+	color: white;
+	font-weight: bold;
+	background-color: #3a3a3a;
+	cursor: pointer;
+	outline: none;
+}
+
 #search-bar-holder
 {
 	justify-self: center;
@@ -45,6 +71,7 @@ body
 
 #entire-table
 {
+	opacity: 0;
 }
 
 #table-headers

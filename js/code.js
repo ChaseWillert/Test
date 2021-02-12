@@ -22,16 +22,14 @@ function doLogin()
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, false);
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-	try
-	{
+	try {
 		xhr.send(jsonPayload);
 
 		var jsonObject = JSON.parse( xhr.responseText );
 
 		userId = jsonObject.id;
 
-		if( userId < 1 )
-		{
+		if( userId < 1 ) {
 			alert("Invalid username or password.");
 			return;
 		}
@@ -42,9 +40,7 @@ function doLogin()
 		saveCookie();
 
 		window.location.href = "mainpage.html";
-	}
-	catch(err)
-	{
+	} catch(err) {
 		alert(err.message);
 	}
 }
@@ -163,8 +159,10 @@ function addContact()
 
 function searchContact()
 {
-	var srch = document.getElementById("searchText").value;
-	document.getElementById("colorSearchResult").innerHTML = "";
+	var srch = document.getElementById("search-bar").value;
+//	document.getElementById("colorSearchResult").innerHTML = "";
+	var table = document.getElementById("entire-table");
+	table.style.opacity = 1;
 
 	var colorList = "";
 
