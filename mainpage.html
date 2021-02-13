@@ -9,23 +9,24 @@
 	<link rel="stylesheet" href="css/mainpageStyle.css">
 	<script defer src="js/md5.js"></script>
 	<script defer src="js/code.js"></script>
-	<!--	<script type="text/javascript">
+	<script type="text/javascript">
 		document.addEventListener('DOMContentLoaded', function()
 		{
 			readCookie();
 		}, false);
-	</script> -->
-
+	</script>
 </head>
 
 <body>
 	<main id="main-holder">
+		<input type="button" value="Logout" class="button" id="logout-button" onclick="doLogout();">
+
 		<h3 id="title">Search or add contacts</h3>
 
 		<div id="search-bar-holder">
 			<input id="add-contact" type="button" value="Add New Contact" onclick="window.location='addContact.html';">
 			<input id="search-bar" type="text" placeholder="Search...">
-			<input id="search-button" type="button" value="Search" onclick="searchContact();">
+			<input class="button" id="search-button" type="button" value="Search" onclick="searchContact();">
 		</div>
 
 		<table id="entire-table">

@@ -31,11 +31,23 @@ a:link, a:visited
 	width: 550px;
 	height: 450px;
 	display: grid;
-	justify-items: center;
-	align-items: center;
 	background-color: white;
 	border-radius: 20px;
 	border-color: black;
+}
+
+#back-button
+{
+	width: 60px;
+	height: 30px;
+	padding: 7px;
+	border: none;
+	border-radius: 3px;
+	color: white;
+	font-weight: bold;
+	background-color: #3a3a3a;
+	cursor: pointer;
+	outline: none;
 }
 
 #register-form
@@ -46,15 +58,9 @@ a:link, a:visited
 	align-items: center;
 }
 
-#back-button
+#register-form-submit
 {
-	width: auto;
-	justify: left;
-}
-
-.button
-{
-	width: 100%;
+	width: 80px;
 	padding: 7px;
 	border: none;
 	border-radius: 3px;

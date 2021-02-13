@@ -27,6 +27,25 @@ body
 	border-color: black;
 }
 
+#logout-button
+{
+	width: 60px;
+	height: 30px;
+	padding: 7px;
+	border: none;
+	border-radius: 3px;
+	color: white;
+	font-weight: bold;
+	background-color: #3a3a3a;
+	cursor: pointer;
+	outline: none;
+}
+/*
+#grid-set
+{
+	display: grid;
+}
+*/
 #title
 {
 	text-align: center;
