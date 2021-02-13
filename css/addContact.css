@@ -1,0 +1,94 @@
+html
+{
+	height: 100%;
+}
+
+body
+{
+	height: 100%;
+	background-color: powderblue;
+	height: 100%;
+	margin: 0;
+	font-family: Arial;
+	display: grid;
+	justify-items: center;
+	align-items: center;
+}
+
+a:link, a:visited
+{
+	padding: 15px 25px;
+}
+
+#title
+{
+	font-size: 40px;
+	text-align: center;
+	color: black;
+}
+
+#main-holder
+{
+	width: 550px;
+	height: 450px;
+	display: grid;
+	justify-items: center;
+	align-items: center;
+	background-color: white;
+	border-radius: 20px;
+	border-color: black;
+}
+
+#register-form
+{
+	align-self: flex-start;
+	display: grid;
+	justify-items: center;
+	align-items: center;
+}
+
+#back-button
+{
+	width: auto;
+	justify: left;
+}
+
+.button
+{
+	width: 100%;
+	padding: 7px;
+	border: none;
+	border-radius: 3px;
+	color: white;
+	font-weight: bold;
+	background-color: #3a3a3a;
+	cursor: pointer;
+	outline: none;
+}
+
+#login
+{
+	font-size: 9pt;
+}
+
+.register-form-field::placeholder
+{
+	text-align: center;
+	font-weight: bold;
+	color: black;
+}
+
+.register-form-field
+{
+	border: none;
+	border-left: ;
+/*	border-bottom: 1px solid #3a3a3a; */
+	border-right:;
+	margin-bottom: 10px;
+	border-radius: 3px;
+	outline: none;
+	padding: 0px 0px 5px 5px;
+	background-color: lightgray;
+	color: black;
+	text-align: center;
+}

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Contacts Manager</title>
+	<link rel="stylesheet" href="css/addContact.css">
+	<script defer src="js/md5.js"></script>
+	<script defer src="js/code.js"></script>
+<!--	<script type="text/javascript">
+		document.addEventListener('DOMContentLoaded', function()
+		{
+			readCookie();
+		}, false);
+	</script> -->
+</head>
+
+
+<body>
+
+	<main id="main-holder">
+		<input type="button" value="Back" class="button" id="back-button" onclick="window.location='mainpage.html';">
+		<h2 id="title">Add a new contact</h2>
+
+		<form id="register-form">
+			<input type="text" name="first-name" id="first-name-field" class="register-form-field" placeholder="first name">
+
+			<input type="text" name="last-name" id="last-name-field" class="register-form-field" placeholder="last name">
+
+			<input type="text" name="username" id="username-field" class="register-form-field" placeholder="phone number">
+
+			<input type="password" name="password" id="password-field" class="register-form-field" placeholder="email">
+
+			<input type="button" value="Add" class="button" id="register-form-submit" onclick="addContact();">
+		</form>
+	</main>
+</body>
+
+
+</html>
