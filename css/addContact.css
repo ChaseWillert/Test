@@ -76,6 +76,12 @@ a:link, a:visited
 	font-size: 9pt;
 }
 
+#notes-field
+{
+	height: 35;
+	wrap: soft;
+}
+
 .register-form-field::placeholder
 {
 	text-align: center;
