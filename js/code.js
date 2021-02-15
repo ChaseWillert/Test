@@ -200,16 +200,15 @@ function searchContact()
 				// document.getElementById("colorSearchResult").innerHTML = "Color(s) has been retrieved";
 				var jsonObject = JSON.parse( xhr.responseText );
 
-				for( var i=0; i<jsonObject.results.length; i++ )
+				for(var i = 0; i < jsonObject.results.length; i++)
 				{
 					contactInfo += jsonObject.results[i];
-					if( i < jsonObject.results.length - 1 )
+					if(jsonObject.results[i] == "]")
 					{
 						contactInfo += "<br />\r\n";
 					}
 				}
-
-				document.getElementsByTagName("p")[0].innerHTML = contactInfo;
+				document.getElementById("search-result").innerHTML = contactInfo;
 			}
 		};
 		xhr.send(jsonPayload);
@@ -218,4 +217,55 @@ function searchContact()
 	{
 		document.getElementById("search-result").innerHTML = err.message;
 	}
+}
+
+// Unfinished
+/*
+function createTable(array)
+{
+	var table = "<table><tr>";
+
+	for (var i = 0; i < 7; i++)
+	{
+		for (var j = 0; j < array)
+		table += "<td>" + array[i]
+	}
+}
+*/
+
+function deleteContact(id)
+{
+	if (!confirm("Are you sure you want to delete that?"))
+	{
+		return;
+	}
+
+	var jsonPayload = '{"delete-value" : "' + id + '}';
+
+	var url = urlBase + '/DeleteContact.' + extension;
+
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try
+	{
+		xhr.onreadystatechange = function()
+		{
+			if (this.readyState == 4 && this.status == 200)
+			{
+				alert("Deletion successful");
+			}
+
+		};
+		xhr.send(jsonPayload);
+	}
+	catch (err)
+	{
+		document.getElementById("search-result").innerHTML = err.message;
+	}
+}
+
+function editContact()
+{
+	var jsonPayload = '{"delete-value" : "' + id + '}';
 }
