@@ -34,7 +34,7 @@
 		*/
 		
 		//MySQL query.
-		$sql = "select `First Name`,`Last Name`,Email,`Phone Number`,`Street Address`,City,State,`Zip Code`,Notes from `Contact Table` where (`First Name` like '%" . $inData["search"] . "%' or `Last Name` like '%" . $inData["search"] . "%' or Email like '%" . $inData["search"] . "%' or `Phone Number` like '%" . $inData["search"] . "%' or `Street Address` like '%" . $inData["search"] . "%' or City like '%" . $inData["search"] . "%' or State like '%" . $inData["search"] . "%' or `Zip Code` like '%" . $inData["search"] . "%' or Notes like '%" . $inData["search"] . "%') and `User ID`=" . $inData["user_id"];
+		$sql = "select `Contact ID`,`First Name`,`Last Name`,Email,`Phone Number`,`Street Address`,City,State,`Zip Code`,Notes from `Contact Table` where (`First Name` like '%" . $inData["search"] . "%' or `Last Name` like '%" . $inData["search"] . "%' or Email like '%" . $inData["search"] . "%' or `Phone Number` like '%" . $inData["search"] . "%' or `Street Address` like '%" . $inData["search"] . "%' or City like '%" . $inData["search"] . "%' or State like '%" . $inData["search"] . "%' or `Zip Code` like '%" . $inData["search"] . "%' or Notes like '%" . $inData["search"] . "%') and `User ID`=" . $inData["user_id"];
 		$result = $conn->query($sql);
 		
 		//Create contact array for result json.
@@ -45,7 +45,8 @@
 				}
 				$searchCount++;
 				$searchResults .= "[";
-				$searchResults .= '"' . $row["First Name"] . '"';
+				$searchResults .= '"' . $row["Contact ID"] . '"';
+				$searchResults .= ',"' . $row["First Name"] . '"';
 				$searchResults .= ',"' . $row["Last Name"] . '"';
 				$searchResults .= ',"' . $row["Email"] . '"';
 				$searchResults .= ',"' . $row["Phone Number"] . '"';
