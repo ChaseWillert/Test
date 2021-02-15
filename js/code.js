@@ -124,7 +124,7 @@ function readCookie()
 	}
 	else
 	{
-		document.getElementById("userName").innerHTML = "Logged in as " + firstName + " " + lastName;
+		document.getElementById("search-result").innerHTML = "Logged in as " + firstName + " " + lastName;
 	}
 }
 
@@ -181,14 +181,12 @@ function addContact()
 function searchContact()
 {
 	var srch = document.getElementById("search-bar").value;
-//	document.getElementById("colorSearchResult").innerHTML = "";
-	var table = document.getElementById("entire-table");
-	table.style.opacity = 1;
+	document.getElementById("search-result").innerHTML = "";
 
 	var contactInfo = "";
 
 	var jsonPayload = '{"search" : "' + srch + '","userId" : ' + userId + '}';
-	var url = urlBase + '/SearchColors.' + extension;
+	var url = urlBase + '/SearchContacts.' + extension;
 
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
@@ -199,25 +197,25 @@ function searchContact()
 		{
 			if (this.readyState == 4 && this.status == 200)
 			{
-				document.getElementById("colorSearchResult").innerHTML = "Color(s) has been retrieved";
+				// document.getElementById("colorSearchResult").innerHTML = "Color(s) has been retrieved";
 				var jsonObject = JSON.parse( xhr.responseText );
 
 				for( var i=0; i<jsonObject.results.length; i++ )
 				{
-					colorList += jsonObject.results[i];
+					contactInfo += jsonObject.results[i];
 					if( i < jsonObject.results.length - 1 )
 					{
-						colorList += "<br />\r\n";
+						contactInfo += "<br />\r\n";
 					}
 				}
 
-				document.getElementsByTagName("p")[0].innerHTML = colorList;
+				document.getElementsByTagName("p")[0].innerHTML = contactInfo;
 			}
 		};
 		xhr.send(jsonPayload);
 	}
 	catch(err)
 	{
-		document.getElementById("colorSearchResult").innerHTML = err.message;
+		document.getElementById("search-result").innerHTML = err.message;
 	}
 }
