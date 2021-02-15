@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Add a contact</title>
+	<link rel="stylesheet" href="css/addContact.css">
+	<script defer src="js/md5.js"></script>
+	<script defer src="js/code.js"></script>
+	<script type="text/javascript">
+		document.addEventListener('DOMContentLoaded', function()
+		{
+			readCookie();
+		}, false);
+	</script>
+</head>
+
+
+<body>
+	<main id="main-holder">
+		<input type="button" value="Back" class="button" id="back-button" onclick="window.location='mainpage.html';">
+		<h3 id="title">Editing Contact</h3>
+
+		<form id="register-form">
+			<input type="text" id="first-name-field" class="register-form-field" placeholder="first name">
+
+			<input type="text" id="last-name-field" class="register-form-field" placeholder="last name">
+
+			<input type="text" id="email-field" class="register-form-field" placeholder="email">
+
+			<input type="text" id="phone-field" class="register-form-field" placeholder="phone number">
+
+			<input type="text" id="street-field" class="register-form-field" placeholder="street">
+
+			<input type="text" id="city-field" class="register-form-field" placeholder="city">
+
+			<input type="text" id="state-field" class="register-form-field" placeholder="state">
+
+			<input type="text" id="zip-field" class="register-form-field" placeholder="zip">
+
+			<textarea id="notes-field" class="register-form-field" placeholder="notes"></textarea>
+
+			<input type="button" value="Save" class="button" id="edit-form-submit" onclick="editContact();">
+		</form>
+
+		<span id="edit-result"></span><br>
+	</main>
+</body>
+
+
+</html>

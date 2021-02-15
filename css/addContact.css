@@ -58,7 +58,7 @@ a:link, a:visited
 	align-items: center;
 }
 
-#register-form-submit
+.button
 {
 	width: 80px;
 	padding: 7px;
