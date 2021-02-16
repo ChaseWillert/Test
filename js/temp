@@ -207,7 +207,7 @@ function searchContact()
 				var numContacts = -1;
 				for (var i = 0; i < jsonObject.results.length; i++)
 				{
-					if (jsonObject.results[i] == ']')
+					if (jsonObject.results.length == ']')
 					{
 						numContacts++;
 					}

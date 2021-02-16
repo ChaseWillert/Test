@@ -11,7 +11,6 @@ body
 	margin: 0;
 	font-family: Arial;
 	display: grid;
-	justify-items: center;
 	align-items: center;
 }
 
@@ -40,6 +39,12 @@ body
 	cursor: pointer;
 	outline: none;
 }
+
+#login-result
+{
+	align-self: center;
+}
+
 /*
 #grid-set
 {
