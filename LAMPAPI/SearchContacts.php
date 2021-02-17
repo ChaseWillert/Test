@@ -1,4 +1,18 @@
 <?php
+    
+    class temp
+    {
+        public $contactId;
+        public $firstName;
+        public $lastName;
+        public $email;
+        public $phoneNumber;
+        public $streetAddress;
+        public $city;
+        public $state;
+        public $zipCode;
+        public $notes;
+    }
 	
 	//Get deserialized json data.
 	$json = file_get_contents('php://input');
@@ -17,7 +31,8 @@
 	if ($conn->connect_error) {
 		returnWithError( $conn->connect_error );
 	} 
-	else {
+	else 
+    {
 		/*  Prepared statement temporarily not used as it won't work with the while loop.
 		//Create insert command for MySQL. Temporarily have test values for DateCreated and DateLastIn.
 		$sql = $conn->prepare("select `First Name`,`Last Name`,Email,`Phone Number`,`Street Address`,City,State,`Zip Code`,Notes from `Contact Table` where (`First Name` like ? or `Last Name` like ? or Email like ? or `Phone Number` like ? or `Street Address` like ? or City like ? or State like ? or `Zip Code` like ? or Notes like ?) and `User ID` = ?");
@@ -39,12 +54,12 @@
 		$result = $conn->query($sql);
 		
         $resultArray = array();
-        $tmp;
+        
 		//Create contact array for result json.
 		if ($result->num_rows > 0) {
 			while($row = $result->fetch_assoc()) {
-				                
-				$tmp->row = $row["Contact ID"];
+				$tmp = new temp();          
+				$tmp->contactId = $row["Contact ID"];
 				$tmp->firstName = $row["First Name"];
 				$tmp->lastName = $row["Last Name"];
 				$tmp->email = $row["Email"];
@@ -65,11 +80,6 @@
 			returnWithError($errormessage);
 		}
 		$conn->close();
-	}
-	
-	//Function for deserializing input json data.
-	function getRequestInfo() {
-		return json_decode(file_get_contents('php://input'), true);
 	}
 	
 	//Function for sending resultant json data.

@@ -1,41 +1,25 @@
 <?php
 	
 	//Get deserialized json data.
-	$inData = getRequestInfo();
-	
-	//Set local variables to deserialized json data.
-	$delete = $inData["delete"];
-	
+	$json = file_get_contents('php://input');
+    $data = json_decode($json);
+		
 	//Temporarily using test login for MySQL.
 	$conn = new mysqli("localhost", "Test", "Test_Pass", "ContactManager");
 	
 	//Check for connection error.
-	if ($conn->connect_error)  {
+	if ($conn->connect_error)  
+    {
 		returnWithError( $conn->connect_error );
 	}
-	else {
+	else 
+    {
 		//Create delete command for MySQL.
-		$sql = $conn->prepare("delete from `Contact Table` where `Contact Id` = ?");
+		$sql = "delete from `Contact Table` where `Contact ID` = " . $data->contactId;
 		
-		//Check if query could be completed.
-		if ($sql->bind_param("i", $delete) == false) {
-			returnWithError("bind_param failed");
-			end;
-		}
+		$result = $conn->query($sql);
 		
-		//Execute MySQL query.
-		$sql->execute();
-		
-		//Close the connection.
-		$conn->close();
-	}
-	
-	//Return with no errors.
-	returnWithError("");
-	
-	//Function for deserializing input json data.
-	function getRequestInfo() {
-		return json_decode(file_get_contents('php://input'), true);
+		returnWithError($result);
 	}
 	
 	//Function for sending resultant json data.

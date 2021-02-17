@@ -192,7 +192,7 @@ function searchContact()
                                      city: document.getElementById("search-city").value,
                                      state: document.getElementById("search-state").value,
                                      zipCode: document.getElementById("search-zipCode").value,
-                                     notes: document.getElementById("search-notes").value})
+                                     notes: document.getElementById("search-notes").value});
 	var url = urlBase + '/SearchContacts.' + extension;
 
     console.log(jsonPayload);
@@ -208,7 +208,7 @@ function searchContact()
                 console.log("responce received.");
 				var responce = JSON.parse(xhr.responseText);
 
-				console.log(JSON.stringify(responce));
+				console.log(xhr.responseText);
                 
                 var table = document.getElementById("searchResults");
                 
@@ -219,10 +219,10 @@ function searchContact()
                 
                 if (responce.error == undefined)
                 {
-                    for (var index in responce)
+                    for (var i = 0; i < responce.length; i++)
                     {
                         var row = table.insertRow(-1);
-
+                        
                         var firstName = row.insertCell(0);
                         var lastName = row.insertCell(1);
                         var email = row.insertCell(2);
@@ -232,17 +232,38 @@ function searchContact()
                         var state = row.insertCell(6);
                         var zipCode = row.insertCell(7);
                         var notes = row.insertCell(8);
+                        
+                        var hiddenID = row.insertCell(9);
+                        hiddenID.style.display = "none";
 
-
-                        firstName.innerHTML = responce[index].firstName;
-                        lastName.innerHTML = responce[index].lastName;
-                        email.innerHTML = responce[index].email;
-                        phoneNumber.innerHTML = responce[index].phoneNumber;
-                        streetAddress.innerHTML = responce[index].streetAddress;
-                        city.innerHTML = responce[index].city;
-                        state.innerHTML = responce[index].state;
-                        zipCode.innerHTML = responce[index].zipCode;
-                        notes.innerHTML = responce[index].notes;
+                        hiddenID.innerHTML = responce[i].contactId;
+                        firstName.innerHTML = responce[i].firstName;
+                        lastName.innerHTML = responce[i].lastName;
+                        email.innerHTML = responce[i].email;
+                        phoneNumber.innerHTML = responce[i].phoneNumber;
+                        streetAddress.innerHTML = responce[i].streetAddress;
+                        city.innerHTML = responce[i].city;
+                        state.innerHTML = responce[i].state;
+                        zipCode.innerHTML = responce[i].zipCode;
+                        notes.innerHTML = responce[i].notes;
+                        
+                        row.onclick = function ()
+                        {
+                            console.log(row);
+                            modal.style.display = "block";
+                            updatingContactId = this.children[9].innerHTML;
+                            console.log(updatingContactId);
+                            document.getElementById("edit-firstName").value = this.children[0].innerHTML;
+                            document.getElementById("edit-lastName").value = this.children[1].innerHTML;
+                            document.getElementById("edit-email").value = this.children[2].innerHTML;
+                            document.getElementById("edit-phoneNumber").value = this.children[3].innerHTML;
+                            document.getElementById("edit-streetAddress").value = this.children[4].innerHTML;
+                            document.getElementById("edit-city").value = this.children[5].innerHTML;
+                            document.getElementById("edit-state").value = this.children[6].innerHTML;
+                            document.getElementById("edit-zipCode").value = this.children[7].innerHTML;
+                            document.getElementById("edit-notes").value = this.children[8].innerHTML;
+                        };
+                        
                     }
                 }
 			}
@@ -255,29 +276,52 @@ function searchContact()
 	}
 }
 
-// Unfinished
-/*
-function createTable(array)
+var updatingContactId;
+function doUpdate()
 {
-	var table = "<table><tr>";
+    
+    var jsonPayload = JSON.stringify({ userId: userId,
+                                      contactId: updatingContactId,
+                                     firstName: document.getElementById("edit-firstName").value,
+                                     lastName: document.getElementById("edit-lastName").value,
+                                     email: document.getElementById("edit-email").value,
+                                     phoneNumber: document.getElementById("edit-phoneNumber").value,
+                                     streetAddress: document.getElementById("edit-streetAddress").value,
+                                     city: document.getElementById("edit-city").value,
+                                     state: document.getElementById("edit-state").value,
+                                     zipCode: document.getElementById("edit-zipCode").value,
+                                     notes: document.getElementById("edit-notes").value});
 
-	for (var i = 0; i < 7; i++)
+	var url = urlBase + '/UpdateContact.' + extension;
+
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try
 	{
-		for (var j = 0; j < array)
-		table += "<td>" + array[i]
+		xhr.onreadystatechange = function()
+		{
+			if (this.readyState == 4 && this.status == 200)
+			{
+                console.log(xhr.responseText);
+                searchContact();
+				alert("Update successful");
+			}
+
+		};
+		xhr.send(jsonPayload);
 	}
+	catch (err)
+	{
+		alert(err.message);
+	}
+    
 }
-*/
 
-function deleteContact(id)
+function doDelete()
 {
-	if (!confirm("Are you sure you want to delete that?"))
-	{
-		return;
-	}
-
-	var jsonPayload = '{"delete-value" : "' + id + '}';
-
+	var jsonPayload = JSON.stringify({ contactId: updatingContactId });
+    
 	var url = urlBase + '/DeleteContact.' + extension;
 
 	var xhr = new XMLHttpRequest();
@@ -289,6 +333,8 @@ function deleteContact(id)
 		{
 			if (this.readyState == 4 && this.status == 200)
 			{
+                console.log(xhr.responseText);
+                searchContact();
 				alert("Deletion successful");
 			}
 
@@ -297,11 +343,29 @@ function deleteContact(id)
 	}
 	catch (err)
 	{
-		document.getElementById("search-result").innerHTML = err.message;
+		alert(err.message);
 	}
 }
 
-function editContact()
-{
-	var jsonPayload = '{"delete-value" : "' + id + '}';
+
+
+// Update Modal logic
+var modal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
 }
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+} 
