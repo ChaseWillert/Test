@@ -33,14 +33,20 @@
 		}
 		
 		//Execute MySQL query.
-		$sql->execute();
+		$result = $sql->execute();
+        
+        $tmp;
+        $tmp->result = $result;
+		returnWithError($tmp);
 		
 		//Close the connection.
 		$conn->close();
+        return;
 	}
 	
-	//Return with no errors.
-	returnWithError("");
+	$tmp;
+    $tmp->result = false;
+    returnWithError($tmp);
 	
 	//Function for deserializing input json data.
 	function getRequestInfo() {
@@ -55,8 +61,7 @@
 	
 	//Function for setting up the return.
 	function returnWithError( $err ) {
-		$retValue = array('error' => $err);
-		sendResultInfoAsJson( $retValue );
+		sendResultInfoAsJson( $err );
 	}
 	
 ?>

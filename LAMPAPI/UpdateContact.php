@@ -19,7 +19,9 @@
         
         $result = $conn->query($sql);
 		
-		returnWithError($result);
+        $tmp;
+        $tmp->result = $result;
+		returnWithError($tmp);
 	}
 	
 	

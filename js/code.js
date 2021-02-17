@@ -167,6 +167,7 @@ function addContact()
 		{
 			if (this.readyState == 4 && this.status == 200)
 			{
+                console.log(xhr.responseText);
 				document.getElementById("add-result").innerHTML = "Contact has been added";
 			}
 		};
