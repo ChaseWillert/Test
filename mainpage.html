@@ -7,19 +7,27 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Your Contacts List</title>
 	<link rel="stylesheet" href="css/mainpageStyle.css">
+    <link rel="stylesheet" href="css/header.css">
 	<script defer src="js/md5.js"></script>
 	<script defer src="js/code.js"></script>
-	<script type="text/javascript">
+	<!--<script type="text/javascript">
 		document.addEventListener('DOMContentLoaded', function()
 		{
 			readCookie();
 		}, false);
-	</script>
+	</script>-->
 </head>
 
-<body>
+<div class="navbar-holder">
+    <ul class="navbar-content">
+      <li class="navbar-content"><a class="active" href="/index.html">Home</a></li>
+    </ul>
+</div>
+    
+<div class="flex-container">
+    <input type="button" value="Logout" class="button" id="logout-button" onclick="doLogout();">
 	<main id="main-holder">
-		<input type="button" value="Logout" class="button" id="logout-button" onclick="doLogout();">
+		
 		<div id="login-result"></div>
 
 		<h3 id="title">Search or add contacts</h3>
@@ -29,10 +37,33 @@
 			<input id="search-bar" type="text" placeholder="Search...">
 			<input class="button" id="search-button" type="button" value="Search" onclick="searchContact();">
 		</div>
-
+        <table id="searchResults">
+          <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Phone Number</th>
+            <th>Street Address</th>
+            <th>City</th>
+            <th>State</th>
+            <th>Zip Code</th>
+            <th>Notes</th>  
+          </tr>
+            <tr>
+                <th><input id="search-firstName" type="text" placeholder="Search..."></th>
+                <th><input id="search-lastName" type="text" placeholder="Search..."></th>
+                <th><input id="search-email" type="text" placeholder="Search..."></th>
+                <th><input id="search-phoneNumber" type="text" placeholder="Search..."></th>
+                <th><input id="search-streetAddress" type="text" placeholder="Search..."></th>
+                <th><input id="search-city" type="text" placeholder="Search..."></th>
+                <th><input id="search-state" type="text" placeholder="Search..."></th>
+                <th><input id="search-zipCode" type="text" placeholder="Search..."></th>
+                <th><input id="search-notes" type="text" placeholder="Search..."></th>
+            </tr>
+        </table> 
 		<div id="search-result"></div>
 	</main>
-</body>
+</div>
 
 
 </html>

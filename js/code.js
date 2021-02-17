@@ -178,18 +178,24 @@ function addContact()
 	}
 }
 
+
 function searchContact()
 {
-	var search = document.getElementById("search-bar").value;
-	document.getElementById("search-result").innerHTML = "";
-
-	var contactInfo = "";
-
-	console.log("userId: " + userId);
-
-	var jsonPayload = '{"search" : "' + search + '", "userId" : "' + userId + '"}';
+    readCookie();
+    
+    var jsonPayload = JSON.stringify({ userId: userId,
+                                     firstName: document.getElementById("search-firstName").value,
+                                     lastName: document.getElementById("search-lastName").value,
+                                     email: document.getElementById("search-email").value,
+                                     phoneNumber: document.getElementById("search-phoneNumber").value,
+                                     streetAddress: document.getElementById("search-streetAddress").value,
+                                     city: document.getElementById("search-city").value,
+                                     state: document.getElementById("search-state").value,
+                                     zipCode: document.getElementById("search-zipCode").value,
+                                     notes: document.getElementById("search-notes").value})
 	var url = urlBase + '/SearchContacts.' + extension;
 
+    console.log(jsonPayload);
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
@@ -199,59 +205,53 @@ function searchContact()
 		{
 			if (this.readyState == 4 && this.status == 200)
 			{
-				// document.getElementById("colorSearchResult").innerHTML = "Color(s) has been retrieved";
-				var jsonObject = JSON.parse( xhr.responseText );
+                console.log("responce received.");
+				var responce = JSON.parse(xhr.responseText);
 
-				console.log(JSON.stringify(jsonObject));
+				console.log(JSON.stringify(responce));
+                
+                var table = document.getElementById("searchResults");
+                
+                for (var i = table.rows.length - 1; i > 1; i--)
+                {
+                    table.deleteRow(i); 
+                }
+                
+                if (responce.error == undefined)
+                {
+                    for (var index in responce)
+                    {
+                        var row = table.insertRow(-1);
 
-				var numContacts = -1;
-				for (var i = 0; i < jsonObject.results.length; i++)
-				{
-					if (jsonObject.results[i] == ']')
-					{
-						numContacts++;
-					}
-				}
+                        var firstName = row.insertCell(0);
+                        var lastName = row.insertCell(1);
+                        var email = row.insertCell(2);
+                        var phoneNumber = row.insertCell(3);
+                        var streetAddress = row.insertCell(4);
+                        var city = row.insertCell(5);
+                        var state = row.insertCell(6);
+                        var zipCode = row.insertCell(7);
+                        var notes = row.insertCell(8);
 
-				console.log("Number of matches: " + numContacts);
-				
-				for (var i = 0; i < jsonObject.results.length; i++)
-				{
-					var curr = jsonObject.results[i];
 
-					if (curr == '[' || curr == '\"')
-					{
-						continue;
-					}
-					else if (curr == ']' || curr == ',')
-					{
-						contactInfo += "\n";
-					}
-					else
-					{
-						contactInfo += curr;
-					}
-				}
-
-/*
-				for (var i = 0; i < jsonObject.results.length; i++)
-				{
-					contactInfo += jsonObject.results[i][i] + " ";
-
-					if(jsonObject.results[i] == "]")
-					{
-						contactInfo += "<br />\r\n";
-					}
-				}
-*/
-				document.getElementById("search-result").innerHTML = contactInfo;
+                        firstName.innerHTML = responce[index].firstName;
+                        lastName.innerHTML = responce[index].lastName;
+                        email.innerHTML = responce[index].email;
+                        phoneNumber.innerHTML = responce[index].phoneNumber;
+                        streetAddress.innerHTML = responce[index].streetAddress;
+                        city.innerHTML = responce[index].city;
+                        state.innerHTML = responce[index].state;
+                        zipCode.innerHTML = responce[index].zipCode;
+                        notes.innerHTML = responce[index].notes;
+                    }
+                }
 			}
 		};
 		xhr.send(jsonPayload);
 	}
 	catch(err)
 	{
-		document.getElementById("search-result").innerHTML = err.message;
+		console.log(err.message);
 	}
 }
 

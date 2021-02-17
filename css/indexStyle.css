@@ -10,9 +10,6 @@ body
 	height: 100%;
 	margin: 0;
 	font-family: Arial;
-	display: grid;
-	justify-items: center;
-	align-items: center;
 }
 
 a:link, a:visited
@@ -27,29 +24,39 @@ a:link, a:visited
 	color: black;
 }
 
+.flex-container {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 #main-holder
 {
 	width: 550px;
 	height: 450px;
-	display: grid;
-	justify-items: center;
-	align-items: center;
 	background-color: white;
 	border-radius: 20px;
 	border-color: black;
+    display: flex;
+	justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
+
 
 #login-form
 {
-	align-self: flex-start;
-	display: grid;
+	display: flex;
 	justify-items: center;
 	align-items: center;
+    flex-direction: column;
 }
 
 #login-form-submit
 {
-	width: 100%;
+	width: 30%;
+    height: 100%;
 	padding: 7px;
 	border: none;
 	border-radius: 3px;
@@ -84,4 +91,6 @@ a:link, a:visited
 	background-color: lightgray;
 	color: black;
 	text-align: center;
+    
+    
 }

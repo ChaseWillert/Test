@@ -1,7 +1,8 @@
 <?php
 	
 	//Get deserialized json data.
-	$inData = getRequestInfo();
+	$json = file_get_contents('php://input');
+    $data = json_decode($json);
 	
 	//Set local variables to deserialized json data.
 	$search = inData["search"];
@@ -34,34 +35,34 @@
 		*/
 		
 		//MySQL query.
-		$sql = "select `Contact ID`,`First Name`,`Last Name`,Email,`Phone Number`,`Street Address`,City,State,`Zip Code`,Notes from `Contact Table` where (`First Name` like '%" . $inData["search"] . "%' or `Last Name` like '%" . $inData["search"] . "%' or Email like '%" . $inData["search"] . "%' or `Phone Number` like '%" . $inData["search"] . "%' or `Street Address` like '%" . $inData["search"] . "%' or City like '%" . $inData["search"] . "%' or State like '%" . $inData["search"] . "%' or `Zip Code` like '%" . $inData["search"] . "%' or Notes like '%" . $inData["search"] . "%') and `User ID`=" . $inData["userId"];
+		$sql = "select `Contact ID`,`First Name`,`Last Name`,Email,`Phone Number`,`Street Address`,City,State,`Zip Code`,Notes from `Contact Table` where (`First Name` like '%" . $data->firstName . "%' and `Last Name` like '%" . $data->lastName . "%' and Email like '%" . $data->email . "%' and `Phone Number` like '%" . $data->phoneNumber . "%' and `Street Address` like '%" . $data->streetAddress . "%' and City like '%" . $data->city . "%' and State like '%" . $data->state . "%' and `Zip Code` like '%" . $data->zipCode . "%' and Notes like '%" . $data->notes . "%') and `User ID`=" . $data->userId;
 		$result = $conn->query($sql);
 		
+        $resultArray = array();
+        $tmp;
 		//Create contact array for result json.
 		if ($result->num_rows > 0) {
 			while($row = $result->fetch_assoc()) {
-				if( $searchCount > 0 ) {
-					$searchResults .= ",";
-				}
-				$searchCount++;
-				$searchResults .= "[";
-				$searchResults .= '"' . $row["Contact ID"] . '"';
-				$searchResults .= ',"' . $row["First Name"] . '"';
-				$searchResults .= ',"' . $row["Last Name"] . '"';
-				$searchResults .= ',"' . $row["Email"] . '"';
-				$searchResults .= ',"' . $row["Phone Number"] . '"';
-				$searchResults .= ',"' . $row["Street Address"] . '"';
-				$searchResults .= ',"' . $row["City"] . '"';
-				$searchResults .= ',"' . $row["State"] . '"';
-				$searchResults .= ',"' . $row["Zip Code"] . '"';
-				$searchResults .= ',"' . $row["Notes"] . '"';
-				$searchResults .= "]";
+				                
+				$tmp->row = $row["Contact ID"];
+				$tmp->firstName = $row["First Name"];
+				$tmp->lastName = $row["Last Name"];
+				$tmp->email = $row["Email"];
+				$tmp->phoneNumber = $row["Phone Number"];
+				$tmp->streetAddress = $row["Street Address"];
+				$tmp->city = $row["City"];
+				$tmp->state = $row["State"];
+				$tmp->zipCode = $row["Zip Code"];
+				$tmp->notes = $row["Notes"];
+                array_push($resultArray, $tmp);
 			}
 			
-			returnWithInfo( $searchResults );
+			sendResultInfoAsJson($resultArray);
 		}
-		else {
-			returnWithError( "No Records Found" );
+		else 
+        {
+            $errormessage = "No Records Founds >>>" . $data->firstName . "<<<";
+			returnWithError($errormessage);
 		}
 		$conn->close();
 	}

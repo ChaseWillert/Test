@@ -10,9 +10,6 @@ body
 	height: 100%;
 	margin: 0;
 	font-family: Arial;
-	display: grid;
-	justify-items: center;
-	align-items: center;
 }
 
 a:link, a:visited
@@ -27,13 +24,21 @@ a:link, a:visited
 	color: black;
 }
 
+.flex-container {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 #main-holder
 {
 	width: 550px;
 	height: 450px;
-	display: grid;
-	justify-items: center;
-	align-items: center;
+	display: flex;
+	justify-content: center;
+    align-items: center;
+    flex-direction: column;
 	background-color: white;
 	border-radius: 20px;
 	border-color: black;
@@ -41,10 +46,10 @@ a:link, a:visited
 
 #register-form
 {
-	align-self: flex-start;
-	display: grid;
-	justify-items: center;
-	align-items: center;
+	display: inherit;
+	justify-content: inherit;
+    align-items: inherit;
+    flex-direction: inherit;
 }
 
 #register-form-submit
